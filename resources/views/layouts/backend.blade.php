@@ -93,7 +93,7 @@
                             <a class="img-link mr-5" href="javascript:void(0)">
                                 <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="">
                             </a>
-                            <a class="align-middle link-effect text-primary-dark font-w600" href="javascript:void(0)">John Smith</a>
+                            <a class="align-middle link-effect text-primary-dark font-w600" href="javascript:void(0)">{{ Auth::user()->name }}</a>
                         </div>
                         <!-- END User Info -->
                     </div>
@@ -176,7 +176,7 @@
                                 </a>
                                 <ul class="list-inline mt-10">
                                     <li class="list-inline-item">
-                                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="javascript:void(0)">J. Smith</a>
+                                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="/profile">{{ Auth::user()->name }}</a>
                                     </li>
                                     <li class="list-inline-item">
                                         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
@@ -185,7 +185,7 @@
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class="link-effect text-dual-primary-dark" href="javascript:void(0)">
+                                        <a class="link-effect text-dual-primary-dark" onclick="event.preventDefault(); document.getElementById('form').submit();" href="javascript:void(0)">
                                             <i class="si si-logout"></i>
                                         </a>
                                     </li>
@@ -333,15 +333,15 @@
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user d-sm-none"></i>
-                                <span class="d-none d-sm-inline-block">J. Smith</span>
+                                <span class="d-none d-sm-inline-block">{{ Auth::user()->username }}</span>
                                 <i class="fa fa-angle-down ml-5"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
                                 <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="/profile">
                                     <i class="si si-user mr-5"></i> Profile
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="/chatify">
                                     <span><i class="si si-envelope-open mr-5"></i> Inbox</span>
                                     <span class="badge badge-primary">3</span>
                                 </a>
@@ -358,9 +358,13 @@
                                 <!-- END Side Overlay -->
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('form').submit();">
                                     <i class="si si-logout mr-5"></i> Sign Out
                                 </a>
+
+                                <form id="form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                         <!-- END User Dropdown -->
